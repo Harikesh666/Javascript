@@ -13,14 +13,15 @@ let isLoggedIn = false //boolean
 let state; //undefined
 
 /*
-    Primitive data type
- number => 2 to power 53
- bigint => for large numbers for example facebook or reddit / trading and banking applications
- string => ""
- boolean => true/false or either 1/0
- null => standalone value type => object
- undefined => placeholder for the value which is not defined yet type => undefined
- symbol => unique
+// Primitive data type = > call by values i.e, if you copy them from somewhere then the reference of the memory of the original data is not given to you, instead a copy of the value/data is given to you and the changes that we make is only limited to the copy
+
+number => 2 to power 53
+bigint => for large numbers for example facebook or reddit / trading and banking applications
+string => ""
+boolean => true/false or either 1/0
+null => standalone value type => object
+undefined => placeholder for the value which is not defined yet type => undefined
+symbol => unique
 
 */
 

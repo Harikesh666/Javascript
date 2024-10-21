@@ -23,6 +23,19 @@ null => standalone value type => object
 undefined => placeholder for the value which is not defined yet type => undefined
 symbol => unique
 
+
+A value in JS is always of a certain type for example, a string or a number.
+There are eight basic data types in JavaScript. Here, we’ll cover them in general and in the next chapters we’ll talk about each of them in detail.
+
+We can put any type in a variable. For example, a variable can at one moment be a string and then store a number:
+
+let message = "hello";
+message = 123456;
+
+Programming languages that allow such things, such as JavaScript, are called “dynamically typed”, meaning that there exist data types, but variables are not bound to any of them.
+
+
+
 */
 
 // object is a non-primitive data type

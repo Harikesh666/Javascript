@@ -21,6 +21,7 @@ const constVariable = "I am const";
 - **Function Hoisting**:
    - **Function Declarations** are fully hoisted, meaning you can call them even before their declaration in the code.
    - **Function Expressions** and **Arrow Functions** are only partially hoisted since they are stored in variables. The variable declaration is hoisted, but the function definition is not, resulting in `undefined` if called before initialization.
+   - If the **Arrow Functions** are stored in a variable using `var` you will get `undefined` and if it is stored using `let` and `const` you will get `ReferenceError` if tried to call them before their declaration
 
 #### Example
 ```javascript

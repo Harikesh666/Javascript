@@ -1,5 +1,3 @@
----
-
 ### **What is a Callback Function in JavaScript?**
 
 In JavaScript, a **callback function** is a function passed as an argument to another function, allowing that function to call it at a later point in time. Functions in JavaScript are **first-class citizens**, which means they can be:

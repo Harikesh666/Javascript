@@ -1,5 +1,3 @@
----
-
 ### **JavaScript as a Synchronous, Single-Threaded Language**  
 
 JavaScript is a synchronous, single-threaded language, which means it has **one call stack** and can execute **only one thing at a time**. The **call stack** is like the central hub where JavaScript code runs, and everything in JavaScript happens inside the **JavaScript engine**.  

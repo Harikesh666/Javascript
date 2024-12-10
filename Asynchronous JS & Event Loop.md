@@ -63,6 +63,13 @@ When you execute this code, here’s what happens step-by-step:
 
 6. Once inside the **call stack**, the `cb` function is executed line by line. In this case, `console.log("Callback")` is called, which logs "Callback" to the console.  
 
+**Output:**
+```
+Start
+End
+Callback
+```
+
 ---
 
 ### **What is the Callback Queue?**  
@@ -111,6 +118,14 @@ Here’s what happens:
 
 5. The `cb` function is executed, logging "Callback" to the console.  
 
+**Output:**
+```
+Start
+End
+```
+
+*(Clicking the button later will output: `Callback`.)*
+
 ---
 
 ### **Callback Queue vs. Microtask Queue**  
@@ -146,14 +161,62 @@ fetch("https://api.example.com")
 console.log("End");
 ```  
 
-Here’s what happens:  
-1. `console.log("Start")` logs "Start".  
-2. `setTimeout` registers a callback in the Web API environment and starts a 5000ms timer.  
-3. `fetch` makes a network request and registers a `.then()` callback in the **microtask queue**.  
-4. `console.log("End")` logs "End".  
-5. After the network request completes, the `.then()` callback is added to the **microtask queue**.  
-6. The event loop processes the **microtask queue** first, so `cbF` logs "CB Fetch".  
-7. Afterward, `cbT` from the **callback queue** logs "CB SetTimeout".  
+### **Detailed Explanation of the Output:**
 
+1. **`console.log("Start")` (Line 1):**
+   - This is a synchronous operation, so it executes immediately.
+   - Output so far:
+     ```
+     Start
+     ```
+
+2. **`setTimeout` (Line 3-5):**
+   - The `setTimeout` function is called with a delay of 5000ms (5 seconds). This registers the callback function `cbT` in the **Web API environment** with a timer.
+   - The **call stack** doesn’t wait for the timer; it moves on immediately.
+
+3. **`fetch` (Line 7-9):**
+   - The `fetch` function is called to make a network request. This is also an asynchronous operation. The `.then()` callback (`cbF`) is registered in the **microtask queue** to execute once the network request resolves.
+
+4. **`console.log("End")` (Line 11):**
+   - This is another synchronous operation, so it executes immediately after the previous statements.
+   - Output so far:
+     ```
+     Start
+     End
+     ```
+
+5. **Network Request Resolves (`fetch`):**
+   - Once the `fetch` request completes, the `.then()` callback (`cbF`) is pushed to the **microtask queue**. Since microtasks have **higher priority** over callbacks from the **callback queue**, `cbF` executes next.
+   - Inside the `cbF` function:
+     ```javascript
+     console.log("CB Fetch");
+     ```
+   - Output so far:
+     ```
+     Start
+     End
+     CB Fetch
+     ```
+
+6. **Timer Completes (5000ms):**
+   - After 5 seconds, the timer for `setTimeout` expires, and the `cbT` function is pushed to the **callback queue**. Once the **call stack** is empty and all **microtasks** are processed, the event loop moves `cbT` to the **call stack** for execution.
+   - Inside the `cbT` function:
+     ```javascript
+     console.log("CB SetTimeout");
+     ```
+   - Final Output:
+     ```
+     Start
+     End
+     CB Fetch
+     CB SetTimeout
+     ```
+     
 ---
 
+### **Why `setTimeout` Does Not Guarantee Exact Timing**  
+
+- **Timers are managed by the browser’s Web API environment, not the JavaScript engine.**  
+- Once the timer expires, the callback function is placed in the **callback queue**.  
+- The **event loop** pushes the callback to the **call stack** only if it’s empty. If the call stack is busy with other tasks, the callback must wait.  
+- Hence, the actual execution time may be delayed beyond the specified duration.

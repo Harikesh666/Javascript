@@ -105,26 +105,40 @@ console.log("End");
 ```  
 
 Here’s what happens:  
-1. The **GEC** is created, and the code executes line by line:  
-   - Line 1: `console.log("Start")` logs "Start".  
-   - Line 2: `addEventListener` is called. This registers the `cb` function with the **DOM Web API**, attaching it to the "click" event of the button. The code moves on immediately.  
-   - Line 3: `console.log("End")` logs "End".  
 
-2. At this point, the **GEC** is popped off the **call stack**. The `cb` function remains registered in the Web API environment, waiting for a "click" event.  
+1. **`console.log("Start")` (Line 1):**
+   - This is a synchronous operation, so it executes immediately.
+   - **Output so far:**
+     ```
+     Start
+     ```
 
-3. When the user clicks the button, the `cb` function is moved to the **callback queue**.  
+2. **`addEventListener` (Line 3-5):**
+   - The `addEventListener` method is called to register a **callback function (`cb`)** for the "click" event on the element with `id="btn"`. 
+   - This is a **non-blocking asynchronous operation**, so JavaScript immediately moves on to the next line without waiting for the "click" event.
+   - **No output is generated at this step.**
 
-4. The **event loop** sees that the **call stack** is empty and moves the `cb` function from the **callback queue** to the **call stack**.  
+3. **`console.log("End")` (Line 7):**
+   - Another synchronous operation, so it executes immediately after registering the event listener.
+   - **Output so far:**
+     ```
+     Start
+     End
+     ```
 
-5. The `cb` function is executed, logging "Callback" to the console.  
+4. **"Click" Event on Button:**
+   - At some point in the future, if the user clicks the button with `id="btn"`, the **callback function (`cb`)** registered in the `addEventListener` will execute.
+   - Inside the `cb` function:
+     ```javascript
+     console.log("Callback");
+     ```
+   - Once the callback is executed, the output will be updated:
+     ```
+     Start
+     End
+     Callback
+     ```
 
-**Output:**
-```
-Start
-End
-```
-
-*(Clicking the button later will output: `Callback`.)*
 
 ---
 
@@ -211,7 +225,7 @@ console.log("End");
      CB Fetch
      CB SetTimeout
      ```
-     
+
 ---
 
 ### **Why `setTimeout` Does Not Guarantee Exact Timing**  

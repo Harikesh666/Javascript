@@ -145,9 +145,9 @@ Timeout Callback
 
 ### **Why Is the Concurrency Model Important?**
 
-- Non-Blocking I/O: JavaScript's concurrency model ensures that time-consuming tasks like network requests and timers don’t block the main thread, keeping the UI responsive.
+- **Non-Blocking I/O**: JavaScript's concurrency model ensures that time-consuming tasks like network requests and timers don’t block the main thread, keeping the UI responsive.
 
-- Efficient Resource Management: It enables asynchronous tasks to be executed concurrently in a non-blocking manner, making better use of system resources without requiring multi-threading.
+- **Efficient Resource Management**: It enables asynchronous tasks to be executed concurrently in a non-blocking manner, making better use of system resources without requiring multi-threading.
 
 ---
 

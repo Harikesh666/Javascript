@@ -19,7 +19,7 @@
 		"vscode": {
 			"extensions": [
 				"esbenp.prettier-vscode",
-				"vscode-icons-team.vscode-icons",
+				"pkief.material-icon-theme",
 				"wayou.vscode-todo-highlight"
 			],
 			"settings": {

@@ -62,6 +62,8 @@ const output = arr.map((x) => x.toString(2));
 
 - The last version uses an arrow function with an implicit return for brevity.
 - This is an anonymous function passed directly to `map`.
+- Anonymous and arrow functions eliminate the need for named functions like binary.
+- If the function has a single return statement, the return keyword and braces {} can be omitted.
 
 ---
 
@@ -185,7 +187,25 @@ Performance Considerations:
 - **Time Complexity**: O(n), as it processes each element once.
 - **Space Complexity**: O(1), since it does not create any new arrays.
 
-#### Example Code 3: Maximum Value Using `reduce`
+### Example Code 3: Maximum Value
+
+```javascript
+const arr = [5, 1, 3, 2, 6];
+
+function findMax(arr) {
+    let max = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
+
+console.log(findMax(arr)); // 6
+```
+
+#### Maximum Value Using `reduce`
 
 ```javascript
 const arr = [5, 1, 3, 2, 6];
@@ -223,17 +243,73 @@ console.log(output); // ["akshay saini", "donald trump", "elon musk", "deepika p
 
 ```javascript
 const users = [
+    { firstName: "akshay", lastName: "saini", age: 26 },
+    { firstName: "donald", lastName: "trump", age: 75 },
+    { firstName: "elon", lastName: "musk", age: 50 },
+    { firstName: "deepika", lastName: "padukone", age: 26 }
+];
+
+const output = users.reduce(function (acc, curr) {
+    if (acc[curr.age]) {
+        acc[curr.age] = ++acc[curr.age];
+    } else {
+        acc[curr.age] = 1;
+    }
+    return acc;
+}, {});
+
+console.log(output); // { 26: 2, 75: 1, 50: 1 }
+```
+
+### Example 3: Filter and Map Combined
+
+```javascript
+const users = [
+    { firstName: "akshay", lastName: "saini", age: 26 },
+    { firstName: "donald", lastName: "trump", age: 75 },
+    { firstName: "elon", lastName: "musk", age: 50 },
+    { firstName: "deepika", lastName: "padukone", age: 26 }
+];
+
+const output = users.filter((user) => user.age < 30).map((user) => user.firstName);
+
+console.log(output); // ["akshay", "deepika"]
+```
+
+### Example 4: Using reduce to Create a Filtered Array
+
+```javascript
+const users = [
     { firstName: "akshay", lastName: "saini", age: 26},
     { firstName: "donald", lastName: "trump", age: 75},
     { firstName: "elon", lastName: "musk", age: 50},
     { firstName: "deepika", lastName: "padukone", age: 26}
 ];
 
-const output = users.reduce(function (acc, user) {
-    if(acc[user.age]) {
-        acc[user.age] = ++acc[user.age];
-    } else {
-        acc[user.age] = 1;
+const output = users.reduce((acc, curr) => {
+    if(curr.age < 30) {
+        acc.push(curr.firstName);
     }
-   
+    return acc;
+}, []);
 
+console.log(output); // ["akshay", "deepika"]
+```
+
+---
+
+### Summary
+
+- `map`: Use it to transform each element in an array into a new value.
+
+  - Example: Convert numbers to their binary representation.
+
+- `filter`: Use it to select elements from an array that meet a certain condition.
+
+    - Example: Filter out odd numbers.
+
+- `reduce`: Use it to aggregate all elements of an array into a single value.
+
+    - Example: Calculate the sum of an array or find the maximum value.
+
+When combined, these higher-order functions allow you to write expressive, clean, and efficient code. By mastering these functions, you

@@ -45,7 +45,7 @@ The primary difference between function statements and function expressions in J
 **Example:**
 ```javascript
 a(); // Works, no error
-b(); // Throws ReferenceError
+b(); // Throws TypeError
 
 function a() {
     console.log("a called");
@@ -58,12 +58,12 @@ var b = function() {
 **Output:**
 ```
 a called
-Uncaught ReferenceError: b is not defined
+TypeError ReferenceError: b is not a function
 ```
 
 **Explanation:**
-- The function statement `a` is hoisted, so `a()` can be called before the function declaration.
-- The function expression `b`, however, is treated like any other variable. It is initially assigned `undefined`, so calling `b()` before it is defined results in a `ReferenceError`.
+- The function statement `a` is hoisted with its definition, so `a()` can be called before the function declaration.
+- The function expression assigned to `b` is treated like a variable declaration. It is initially assigned `undefined`, so calling `b()` before it is defined results in a TypeError, because you are attempting to call `undefined` as a function.
 
 ---
 
